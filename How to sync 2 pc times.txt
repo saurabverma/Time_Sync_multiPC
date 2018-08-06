@@ -1,0 +1,20 @@
+Design: Mr. Saurab Verma
+
+It is assumed that "slave" computer gets the time from a "master" computer.
+All the following commands are run on slave pc.
+
+Prior to syncing time, with root login on slave pc, allow other local users to change time using the following command:
+
+  $setcap cap_sys_time=ep /bin/date
+
+The following command confirms 
+
+  $getcap /bin/date
+
+Next, use the following command to get the time from master pc and set it on the slave pc (type master pc password if necessary):
+
+  $date -s $(ssh isera2@master "date +%T")
+
+Note that this command can be run periodically, just to ensure that both computer times are in sync and drift effects are minimal.
+
+
